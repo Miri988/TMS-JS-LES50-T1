@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
+    <title>Homework</title>
+</head>
+<body>
+    <div class="grid">
+        <div class="column">
+            <div class="header">TODO LIST</div>
+            <div class="todos">
+                <!--todo запись-->
+                <!-- <div class="todo-item" >
+                    <p>Title:<span>Цветы </span></p>
+                    <p>Description: <span>полить цветы</span></p>
+                    <button class="button edit" name="edit">Edit</button>
+                    <button class="button delete" name="remove">Delete</button>
+                </div>
+                <div class="todo-item">
+                    <p>Title: <span> Цветы </span></p>
+                    <p>Description: <span>полить цветы</span></p>
+                    <button class="button edit" name="edit">Edit</button>
+                    <button class="button delete" name="remove">Delete</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="column">
+            <div class="segments">
+                <div class="segment">
+                    <div class="header">CREATE A NEW TODO</div>
+                </div>
+                <div class="segment">
+                    <form class="form">
+                        <div class="field">
+                            <label>Title</label>
+                            <input name="title" type="text" placeholder="title" />
+                        </div>
+                        <div class="field">
+                            <label>Description</label>
+                            <input name="description" type="text" placeholder="description" />
+                        </div>
+                    </form>
+                </div>
+                <div class="right aligned segment">
+                    <button class="button" name="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="content">
+            <div class="message segments">
+                <div class="segment">
+                    <form class="form">
+                        <div class="field">
+                            <label>Title:</label>
+                            <input class="text" name="new-title"/>
+                        </div>
+                        <div class="field">
+                            <label>Description:</label>
+                            <input class="text" name="new-description"/>
+                        </div>
+                        <div class="right aligned segment">
+                            <button class="button save">Save</button>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src = 'int_script.js'></script>
+</body>
+</html>
