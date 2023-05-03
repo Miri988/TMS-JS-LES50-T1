@@ -11,10 +11,17 @@
 
 'use strict';
 
+let data = [];
+let editItem = null;
+
 const todoList = document.querySelector('.todos');
 const todoItem = document.querySelector('.todo-item');
 
-let data = [];
+const modal = document.querySelector('.modal');
+const modalBtn = document.querySelector('.modal .button');
+
+const newTitle = document.querySelector('.modal input[name=new-title]');
+const newDescription = document.querySelector('.modal input[name=new-description]');
 
 const title = document.querySelector('input[name=title]');
 const description = document.querySelector('input[name=description]');
@@ -22,7 +29,6 @@ const description = document.querySelector('input[name=description]');
 const submitBtn = document.querySelector('button[name=submit]');
 
 const showTodo = () => {
-  event.preventDefault(); 
   todoList.innerHTML = "";
   data.forEach((item) => {
     todoList.innerHTML += `
@@ -35,72 +41,44 @@ const showTodo = () => {
   });
 };
 
-const addTodo = () => {
-  event.preventDefault(); 
-  
+const addTodo = () => { 
   const todo = {
     id: Date.now(),
     title: title.value,
     description: description.value,
   };
-
   data.push(todo);
-
   showTodo();
-
 };
 
-submitBtn.addEventListener('click', addTodo);
-
-const editBtn = document.querySelector('button[name=edit]');
-
-const removeBtn = document.querySelector('button[name=remove]');
-
-
-
-const removeTodo = () => {
-  event.preventDefault(); 
-  if (event.target.classList.contains('delete')) {
-    const delTodoId = event.target.closest(".todo-item").id;
+const removeTodo = (e) => {
+  if (e.target.classList.contains('delete')) {
+    const delTodoId = e.target.closest(".todo-item").id;
     const delIndex = data.findIndex(el => el.id === +delTodoId);
     data.splice(delIndex, 1)
     showTodo();
   }
 };
 
-todoList.addEventListener("click", removeTodo);
-
-const editTodo = () => {
-  event.preventDefault(); 
-  if (event.target.textContent === "Edit") {
-    const edTodoId = event.target.closest(".todo-item").id;
-    const edIndex = data.findIndex(el => el.id === +edTodoId);
-
-    const modal = document.querySelector('.modal');
-    const visMod = modal.classList.add('visible');
-
-    const modalMes = document.querySelector('.message');
-
-    const newTitle = modalMes.querySelector('input[name=new-title]');
-    const newDescription = modalMes.querySelector('input[name=new-description]');
-
-    newTitle.value = data[edIndex].title;
-    newDescription.value = data[edIndex].description;
-
-    const closeModal = () => {
-      const remMod = modal.classList.remove('visible');  
-
-      data.splice(edIndex,1,{'id': +edTodoId, 'title': newTitle.value, 'description': newDescription.value});
-
-      showTodo();
-      
-    }
-    
-    const modalBtn = document.querySelector('.modal .button');
-    const closeMod = modalBtn.addEventListener('click', closeModal, {once: true});
-
+const editTodo = (e) => {
+  if (e.target.textContent === "Edit") {
+    const edTodoId = e.target.closest(".todo-item").id;
+    editItem = data.find(el => el.id === +edTodoId);
+    newTitle.value = editItem.title;
+    newDescription.value = editItem.description;
+    modal.classList.add('visible');
   }
-  
 }
 
+const closeModal = (e) => {
+  e.preventDefault();
+  editItem.title = newTitle.value;
+  editItem.description = newDescription.value;
+  modal.classList.remove('visible');
+  showTodo(); 
+}
+
+submitBtn.addEventListener('click', addTodo);
+todoList.addEventListener("click", removeTodo);
 todoList.addEventListener("click", editTodo);
+modalBtn.addEventListener('click', closeModal);
